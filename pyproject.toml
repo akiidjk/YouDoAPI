@@ -3,7 +3,7 @@
 [project]
 name = "YouDoAPI"
 description = "Api for a Todo Aplication"
-version = "v3.1.0"
+version = "v0.0.1"
 readme = "README.md"
 requires-python = ">=3.10"
 
@@ -16,8 +16,8 @@ logs_file = false
 
 # ------ CONFIG FOR POETRY ------
 [tool.poetry]
-name = "VirgilAI"
-version = "3.1.0"
+name = "YouDoAPI"
+version = "v0.0.1"
 description = "Api for todo application"
 authors = ["Retr0100 <dragonfaiver@gmail.com>"]
 readme = "README.md"
@@ -49,6 +49,7 @@ exclude = [
     ".venv",
     "__pypackages__",
     "venv",
+    ".env"
 ]
 respect-gitignore = true
 target-version = "py311"
