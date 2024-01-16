@@ -33,6 +33,7 @@ sqlalchemy = "^2.0.25"
 psycopg2 = "^2.9.9"
 python-dotenv = "^1.0.0"
 strawberry-graphql = {extras = ["fastapi"], version = "^0.217.1"}
+asyncpg = "^0.29.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.5"
