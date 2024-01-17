@@ -1,8 +1,7 @@
 import strawberry
 
-from schema import TestInput, TestType
-from service.test import TestService
-
+from schema import DailyTodoInput, DailyTodoType
+from service.dailyTodo import DailyTodoService
 
 @strawberry.type
 class Mutation:
@@ -13,19 +12,19 @@ class Mutation:
     """
 
     @strawberry.mutation
-    async def create_test(self,test_data:TestInput) -> TestType:
+    async def create_daily_todo(self,daily_todo_data:DailyTodoInput) -> DailyTodoType:
         """Create a new test case with given data.
 
         Args:
-            test_data (TestInput): _description_
+            daily_todo_data (DailyTodoInput): _description_
 
         Returns:
             TestType: _description_
         """
-        return await TestService.create_test(test_data=test_data)
+        return await DailyTodoService.create(daily_todo_data=daily_todo_data)
 
     @strawberry.mutation
-    async def delete_test(self,id:int) -> str:
+    async def delete_daily_todo(self,id:int) -> int:
         """Delete an existing test case by its id.
 
         Args:
@@ -34,17 +33,18 @@ class Mutation:
         Returns:
             str: _description_
         """
-        return await TestService.detete_test(id)
+        return await DailyTodoService.delete(id)
 
     @strawberry.mutation
-    async def update_test(self,id:int,test_data:TestInput) -> str:
+    async def update_daily_todo(self,id:int,daily_todo_data:DailyTodoInput) -> str:
         """Update an existing test case's information.
 
         Args:
             id (int): _description_
-            test_data (TestInput): _description_
+            daily_todo_data (TestInput): _description_
 
         Returns:
             str: _description_
         """
-        return await TestService.update(id,test_data)
+        return await DailyTodoService.update(id,daily_todo_data)
+

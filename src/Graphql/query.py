@@ -1,7 +1,7 @@
 import strawberry
 
-from schema import TestType
-from service.test import TestService
+from schema import DailyTodoType
+from service.dailyTodo import DailyTodoService
 
 
 @strawberry.type
@@ -12,25 +12,16 @@ class Query:
         _type_: _description_
     """
     @strawberry.field
-    def hello(self) -> str:
-        """Get a greeting message from the server.
-
-        Returns:
-            str: _description_
-        """
-        return "Hello World!"
-
-    @strawberry.field
-    async def get_all(self) -> list[TestType]:
+    async def get_all_daily_todo(self) -> list[DailyTodoType]:
         """Get all test data.
 
         Returns:
             list[TestType]: _description_
         """
-        return await TestService.get_all_Test()
+        return await DailyTodoService.get_all()
 
     @strawberry.field
-    async def get_by_id(self,id:int) -> TestType:
+    async def get_by_id_daily_todo(self,id:int) -> DailyTodoType:
         """Get one test data by id.
 
         Args:
@@ -39,4 +30,4 @@ class Query:
         Returns:
             TestType: _description_
         """
-        return await TestService.get_by_id(id)
+        return await DailyTodoService.get_by_id(id)
