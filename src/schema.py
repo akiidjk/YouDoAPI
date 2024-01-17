@@ -6,17 +6,26 @@
 import strawberry
 
 
+
+
 # * When get a row
 @strawberry.type
-class TestType:
-    """This class represent the data of one row in the database, it's used to parse the result from the query."""
+class DailyTodoType:
+    """Class to represent the data of todoDaily in the graphql query."""
     id:int
-    name:str
+    title:str
     description:str
+    date_created:str
+    date_expire:str
+    status_done:bool
 
 # * When put a element
+
 @strawberry.input
-class TestInput:
-    """This class is used to send data to create or update an object in the database."""
-    name:str
+class DailyTodoInput:
+    """Class to represent the data in the mutation query."""
+    title:str
     description:str
+    date_created:str
+    date_expire:str
+    status_done:bool
