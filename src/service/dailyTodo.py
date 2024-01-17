@@ -26,9 +26,17 @@ class DailyTodoService:
         daily_todo.date_created = daily_todo_data.date_created
         daily_todo.date_expire = daily_todo_data.date_expire
         daily_todo.status_done = daily_todo_data.status_done
+        daily_todo.email_user = daily_todo_data.email_user
+
         await DailyTodoRepository.create(daily_todo)
 
-        return DailyTodoType(id = daily_todo.id,title = daily_todo.title, description = daily_todo.description,date_expire= daily_todo.date_expire,date_created=daily_todo.date_created,status_done=daily_todo.status_done)
+        return DailyTodoType(id = daily_todo.id,
+                             title = daily_todo.title,
+                             description = daily_todo.description,
+                             date_expire= daily_todo.date_expire,
+                             date_created=daily_todo.date_created,
+                             status_done=daily_todo.status_done,
+                             email_user=daily_todo.email_user)
 
     @staticmethod
     async def get_all():
@@ -38,7 +46,13 @@ class DailyTodoService:
             _type_: _description_
         """
         list_daily_todo = await DailyTodoRepository.get_all()
-        return [DailyTodoType(id = daily_todo.id,title = daily_todo.title, description = daily_todo.description,date_expire= daily_todo.date_expire,date_created=daily_todo.date_created,status_done=daily_todo.status_done) for daily_todo in list_daily_todo]
+        return [DailyTodoType(id = daily_todo.id,
+                             title = daily_todo.title,
+                             description = daily_todo.description,
+                             date_expire= daily_todo.date_expire,
+                             date_created=daily_todo.date_created,
+                             status_done=daily_todo.status_done,
+                             email_user=daily_todo.email_user) for daily_todo in list_daily_todo]
 
     @staticmethod
     async def get_by_id(daily_todo_id:int) -> DailyTodoType:
@@ -51,7 +65,32 @@ class DailyTodoService:
             _type_: _description_
         """
         daily_todo = await DailyTodoRepository.get_by_id(daily_todo_id)
-        return DailyTodoType(id = daily_todo.id,title = daily_todo.title, description = daily_todo.description,date_expire= daily_todo.date_expire,date_created=daily_todo.date_created,status_done=daily_todo.status_done)
+        return DailyTodoType(id = daily_todo.id,
+                             title = daily_todo.title,
+                             description = daily_todo.description,
+                             date_expire= daily_todo.date_expire,
+                             date_created=daily_todo.date_created,
+                             status_done=daily_todo.status_done,
+                             email_user=daily_todo.email_user)
+
+    @staticmethod
+    async def get_by_email(daily_todo_email:int) -> DailyTodoType:
+        """Get an specific test by its id.
+
+        Args:
+            daily_todo_email (int): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        daily_todo = await DailyTodoRepository.get_by_email(daily_todo_email)
+        return DailyTodoType(id = daily_todo.id,
+                             title = daily_todo.title,
+                             description = daily_todo.description,
+                             date_expire= daily_todo.date_expire,
+                             date_created=daily_todo.date_created,
+                             status_done=daily_todo.status_done,
+                             email_user=daily_todo.email_user)
 
     @staticmethod
     async def delete(daily_todo_id: int) -> int:
@@ -83,5 +122,6 @@ class DailyTodoService:
         daily_todo.date_created = daily_todo_data.date_created
         daily_todo.date_expire = daily_todo_data.date_expire
         daily_todo.status_done = daily_todo_data.status_done
+        daily_todo.email_user = daily_todo_data.email_user
         await DailyTodoRepository.update(daily_todo_id,daily_todo)
         return f'Successfully updated data by id {daily_todo_id}'

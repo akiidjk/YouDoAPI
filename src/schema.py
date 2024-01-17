@@ -18,6 +18,7 @@ class DailyTodoType:
     date_created:str
     date_expire:str
     status_done:bool
+    email_user:str
 
 # * When put a element
 
@@ -29,3 +30,4 @@ class DailyTodoInput:
     date_created:str
     date_expire:str
     status_done:bool
+    email_user:str

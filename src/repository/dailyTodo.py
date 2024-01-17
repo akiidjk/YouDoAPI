@@ -39,6 +39,22 @@ class DailyTodoRepository:
             return daily_todo
 
     @staticmethod
+    async def get_by_email(daily_todo_email:str) -> DailyTodo:
+        """Method to retrieve a test by its id.
+
+        Args:
+            daily_todo_email (Test): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        async with db as session:
+            stmt = select(DailyTodo).where(DailyTodo.email_user == daily_todo_email)
+            result = await session.execute(stmt)
+            daily_todo = result.scalars().first()
+            return daily_todo
+
+    @staticmethod
     async def get_all() -> list[DailyTodo]:
         """Method to retrieve all tests in the database.
 
@@ -71,6 +87,8 @@ class DailyTodoRepository:
             daily_todo.date_created = daily_todo_data.date_created
             daily_todo.date_expire = daily_todo_data.date_expire
             daily_todo.status_done = daily_todo_data.status_done
+            daily_todo.email_user = daily_todo_data.email_user
+
 
             print(daily_todo.title)
             print(daily_todo.description)

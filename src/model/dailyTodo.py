@@ -14,4 +14,5 @@ class DailyTodo(SQLModel, table=True):
     date_created:str
     date_expire:str
     status_done:bool
+    email_user:str
 
