@@ -39,7 +39,7 @@ class DailyTodoRepository:
             return daily_todo
 
     @staticmethod
-    async def get_by_email(daily_todo_email:str) -> DailyTodo:
+    async def get_by_email(daily_todo_email:str) -> list[DailyTodo]:
         """Method to retrieve a test by its id.
 
         Args:
@@ -51,7 +51,7 @@ class DailyTodoRepository:
         async with db as session:
             stmt = select(DailyTodo).where(DailyTodo.email_user == daily_todo_email)
             result = await session.execute(stmt)
-            daily_todo = result.scalars().first()
+            daily_todo = result.scalars().all()
             return daily_todo
 
     @staticmethod
@@ -88,10 +88,6 @@ class DailyTodoRepository:
             daily_todo.date_expire = daily_todo_data.date_expire
             daily_todo.status_done = daily_todo_data.status_done
             daily_todo.email_user = daily_todo_data.email_user
-
-
-            print(daily_todo.title)
-            print(daily_todo.description)
 
             query = sql_update(DailyTodo).where(DailyTodo.id == daily_todo_id).values(
                 **daily_todo.dict()).execution_options(synchronize_session="evaluate")

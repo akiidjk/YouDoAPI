@@ -74,23 +74,23 @@ class DailyTodoService:
                              email_user=daily_todo.email_user)
 
     @staticmethod
-    async def get_by_email(daily_todo_email:int) -> DailyTodoType:
+    async def get_by_email(daily_todo_email:str) -> list[DailyTodoType]:
         """Get an specific test by its id.
 
         Args:
-            daily_todo_email (int): _description_
+            daily_todo_email (str): _description_
 
         Returns:
             _type_: _description_
         """
-        daily_todo = await DailyTodoRepository.get_by_email(daily_todo_email)
-        return DailyTodoType(id = daily_todo.id,
+        list_daily_todo = await DailyTodoRepository.get_by_email(daily_todo_email)
+        return [DailyTodoType(id = daily_todo.id,
                              title = daily_todo.title,
                              description = daily_todo.description,
                              date_expire= daily_todo.date_expire,
                              date_created=daily_todo.date_created,
                              status_done=daily_todo.status_done,
-                             email_user=daily_todo.email_user)
+                             email_user=daily_todo.email_user) for daily_todo in list_daily_todo]
 
     @staticmethod
     async def delete(daily_todo_id: int) -> int:

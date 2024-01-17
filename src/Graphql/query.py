@@ -21,6 +21,18 @@ class Query:
         return await DailyTodoService.get_all()
 
     @strawberry.field
+    async def get_by_email_daily_todo(self,email_user:str) -> list[DailyTodoType]:
+        """Get one test data by email.
+
+        Args:
+            email_user (int): The email of user
+
+        Returns:
+            DailyTodoType: _description_
+        """
+        return await DailyTodoService.get_by_email(email_user)
+
+    @strawberry.field
     async def get_by_id_daily_todo(self,id:int) -> DailyTodoType:
         """Get one test data by id.
 
@@ -28,6 +40,6 @@ class Query:
             id (int): _description_
 
         Returns:
-            TestType: _description_
+            DailyTodoType: _description_
         """
         return await DailyTodoService.get_by_id(id)
