@@ -1,7 +1,7 @@
 import strawberry
 
-from schema import DailyTodoType
-from service.dailyTodo import DailyTodoService
+from schema import TodoType
+from service.dailyTodo import TodoService
 
 
 @strawberry.type
@@ -12,16 +12,16 @@ class Query:
         _type_: _description_
     """
     @strawberry.field
-    async def get_all_daily_todo(self) -> list[DailyTodoType]:
+    async def get_all_todo(self) -> list[TodoType]:
         """Get all test data.
 
         Returns:
             list[TestType]: _description_
         """
-        return await DailyTodoService.get_all()
+        return await TodoService.get_all()
 
     @strawberry.field
-    async def get_by_email_daily_todo(self,email_user:str) -> list[DailyTodoType]:
+    async def get_by_email_todo(self,email_user:str) -> list[TodoType]:
         """Get one test data by email.
 
         Args:
@@ -30,10 +30,10 @@ class Query:
         Returns:
             DailyTodoType: _description_
         """
-        return await DailyTodoService.get_by_email(email_user)
+        return await TodoService.get_by_email(email_user)
 
     @strawberry.field
-    async def get_by_id_daily_todo(self,id:int) -> DailyTodoType:
+    async def get_by_id_todo(self,id:int) -> TodoType:
         """Get one test data by id.
 
         Args:
@@ -42,4 +42,4 @@ class Query:
         Returns:
             DailyTodoType: _description_
         """
-        return await DailyTodoService.get_by_id(id)
+        return await TodoService.get_by_id(id)

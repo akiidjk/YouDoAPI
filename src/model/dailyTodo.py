@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, Field
-class DailyTodo(SQLModel, table=True):
+class Todo(SQLModel, table=True):
     """This is a the model for the table in the DB.
 
     Args:
@@ -15,4 +15,5 @@ class DailyTodo(SQLModel, table=True):
     date_expire:str
     status_done:bool
     email_user:str
+    priority:int
 

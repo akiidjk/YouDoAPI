@@ -1,9 +1,9 @@
-from model.dailyTodo import DailyTodo
-from repository.dailyTodo import DailyTodoRepository
-from schema import DailyTodoInput, DailyTodoType
+from model.dailyTodo import Todo
+from repository.dailyTodo import TodoRepository
+from schema import TodoInput, TodoType
 
 
-class DailyTodoService:
+class TodoService:
     """Service class for the test entity. This class is responsible to manage all operations related with tests in.
 
     Returns:
@@ -11,32 +11,33 @@ class DailyTodoService:
     """
 
     @staticmethod
-    async def create(daily_todo_data:DailyTodoInput):
+    async def create(todo_data:TodoInput):
         """Create a new test in the database.
 
         Args:
-            daily_todo_data (DailyTodoInput): _description_
+            todo_data (DailyTodoInput): _description_
 
         Returns:
             _type_: _description_
         """
-        daily_todo = DailyTodo()
-        daily_todo.title = daily_todo_data.title
-        daily_todo.description = daily_todo_data.description
-        daily_todo.date_created = daily_todo_data.date_created
-        daily_todo.date_expire = daily_todo_data.date_expire
-        daily_todo.status_done = daily_todo_data.status_done
-        daily_todo.email_user = daily_todo_data.email_user
+        todo = Todo()
+        todo.title = todo_data.title
+        todo.description = todo_data.description
+        todo.date_created = todo_data.date_created
+        todo.date_expire = todo_data.date_expire
+        todo.status_done = todo_data.status_done
+        todo.email_user = todo_data.email_user
+        todo.priority = todo_data.priority
 
-        await DailyTodoRepository.create(daily_todo)
-
-        return DailyTodoType(id = daily_todo.id,
-                             title = daily_todo.title,
-                             description = daily_todo.description,
-                             date_expire= daily_todo.date_expire,
-                             date_created=daily_todo.date_created,
-                             status_done=daily_todo.status_done,
-                             email_user=daily_todo.email_user)
+        await TodoRepository.create(todo)
+        return TodoType(id = todo.id,
+                             title = todo.title,
+                             description = todo.description,
+                             date_expire= todo.date_expire,
+                             date_created=todo.date_created,
+                             status_done=todo.status_done,
+                             email_user=todo.email_user,
+                             priority=todo.priority)
 
     @staticmethod
     async def get_all():
@@ -45,83 +46,87 @@ class DailyTodoService:
         Returns:
             _type_: _description_
         """
-        list_daily_todo = await DailyTodoRepository.get_all()
-        return [DailyTodoType(id = daily_todo.id,
-                             title = daily_todo.title,
-                             description = daily_todo.description,
-                             date_expire= daily_todo.date_expire,
-                             date_created=daily_todo.date_created,
-                             status_done=daily_todo.status_done,
-                             email_user=daily_todo.email_user) for daily_todo in list_daily_todo]
+        list_daily_todo = await TodoRepository.get_all()
+        return [TodoType(id = todo.id,
+                             title = todo.title,
+                             description = todo.description,
+                             date_expire= todo.date_expire,
+                             date_created=todo.date_created,
+                             status_done=todo.status_done,
+                             email_user=todo.email_user,
+                             priority=todo.priority) for todo in list_daily_todo]
 
     @staticmethod
-    async def get_by_id(daily_todo_id:int) -> DailyTodoType:
+    async def get_by_id(todo_id:int) -> TodoType:
         """Get an specific test by its id.
 
         Args:
-            daily_todo_id (int): _description_
+            todo_id (int): _description_
 
         Returns:
             _type_: _description_
         """
-        daily_todo = await DailyTodoRepository.get_by_id(daily_todo_id)
-        return DailyTodoType(id = daily_todo.id,
-                             title = daily_todo.title,
-                             description = daily_todo.description,
-                             date_expire= daily_todo.date_expire,
-                             date_created=daily_todo.date_created,
-                             status_done=daily_todo.status_done,
-                             email_user=daily_todo.email_user)
+        todo = await TodoRepository.get_by_id(todo_id)
+        return TodoType(id = todo.id,
+                             title = todo.title,
+                             description = todo.description,
+                             date_expire= todo.date_expire,
+                             date_created=todo.date_created,
+                             status_done=todo.status_done,
+                             email_user=todo.email_user,
+                             priority=todo.priority)
 
     @staticmethod
-    async def get_by_email(daily_todo_email:str) -> list[DailyTodoType]:
+    async def get_by_email(todo_email:str) -> list[TodoType]:
         """Get an specific test by its id.
 
         Args:
-            daily_todo_email (str): _description_
+            todo_email (str): _description_
 
         Returns:
             _type_: _description_
         """
-        list_daily_todo = await DailyTodoRepository.get_by_email(daily_todo_email)
-        return [DailyTodoType(id = daily_todo.id,
-                             title = daily_todo.title,
-                             description = daily_todo.description,
-                             date_expire= daily_todo.date_expire,
-                             date_created=daily_todo.date_created,
-                             status_done=daily_todo.status_done,
-                             email_user=daily_todo.email_user) for daily_todo in list_daily_todo]
+        list_daily_todo = await TodoRepository.get_by_email(todo_email)
+        return [TodoType(id = todo.id,
+                             title = todo.title,
+                             description = todo.description,
+                             date_expire= todo.date_expire,
+                             date_created=todo.date_created,
+                             status_done=todo.status_done,
+                             email_user=todo.email_user,
+                             priority=todo.priority) for todo in list_daily_todo]
 
     @staticmethod
-    async def delete(daily_todo_id: int) -> int:
+    async def delete(todo_id: int) -> int:
         """Delete a test by its ID.
 
         Args:
-            daily_todo_id (int): _description_
+            todo_id (int): _description_
 
         Returns:
             _type_: _description_
         """
-        await DailyTodoRepository.delete(daily_todo_id)
-        return daily_todo_id
+        await TodoRepository.delete(todo_id)
+        return todo_id
 
     @staticmethod
-    async def update(daily_todo_id:int, daily_todo_data: DailyTodoInput) -> str:
+    async def update(todo_id:int, todo_data: TodoInput) -> str:
         """Update a test on the database with new information.
 
         Args:
-            daily_todo_id (int): _description_
-            daily_todo_data (DailyTodoInput): _description_
+            todo_id (int): _description_
+            todo_data (DailyTodoInput): _description_
 
         Returns:
             _type_: _description_
         """
-        daily_todo = DailyTodo()
-        daily_todo.title = daily_todo_data.title
-        daily_todo.description = daily_todo_data.description
-        daily_todo.date_created = daily_todo_data.date_created
-        daily_todo.date_expire = daily_todo_data.date_expire
-        daily_todo.status_done = daily_todo_data.status_done
-        daily_todo.email_user = daily_todo_data.email_user
-        await DailyTodoRepository.update(daily_todo_id,daily_todo)
-        return f'Successfully updated data by id {daily_todo_id}'
+        todo = Todo()
+        todo.title = todo_data.title
+        todo.description = todo_data.description
+        todo.date_created = todo_data.date_created
+        todo.date_expire = todo_data.date_expire
+        todo.status_done = todo_data.status_done
+        todo.email_user = todo_data.email_user
+        todo.priority = todo_data.priority
+        await TodoRepository.update(todo_id,todo)
+        return f'Successfully updated data by id {todo_id}'

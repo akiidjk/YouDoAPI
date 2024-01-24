@@ -10,7 +10,7 @@ import strawberry
 
 # * When get a row
 @strawberry.type
-class DailyTodoType:
+class TodoType:
     """Class to represent the data of todoDaily in the graphql query."""
     id:int
     title:str
@@ -19,11 +19,13 @@ class DailyTodoType:
     date_expire:str
     status_done:bool
     email_user:str
+    priority:int
+
 
 # * When put a element
 
 @strawberry.input
-class DailyTodoInput:
+class TodoInput:
     """Class to represent the data in the mutation query."""
     title:str
     description:str
@@ -31,3 +33,5 @@ class DailyTodoInput:
     date_expire:str
     status_done:bool
     email_user:str
+    priority:int
+
