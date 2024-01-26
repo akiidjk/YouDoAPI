@@ -9,7 +9,6 @@ from sqlmodel import SQLModel
 load_dotenv()
 
 DB_CONFIG = os.getenv('DB_CONFIG')
-
 class DatabaseSession:
     """A class that manages the connection to the database and provides a context for working with it."""
     def __init__(self,url:str = DB_CONFIG) -> None:

@@ -17,10 +17,8 @@ class TodoRepository:
         Args:
             todo_data (DailyTodo): _description_
         """
-        async with db as session:
-            async with session.begin():
-                session.add(todo_data)
-            await db.commit_rollback()
+        async with db as session, session.begin():
+            session.add(todo_data)
 
     @staticmethod
     async def get_by_id(todo_id:int) -> Todo:
@@ -73,28 +71,26 @@ class TodoRepository:
             todo_id (int): _description_
             todo_data (Test): _description_
         """
-        async with db as session:
+        async with db as session, session.begin():
             stmt = select(Todo).where(Todo.id == todo_id)
             result = await session.execute(stmt)
-
             todo = result.scalars().first()
+            if todo:
+                todo.title = todo_data.title
+                todo.description = todo_data.description
+                todo.date_created = todo_data.date_created
+                todo.date_expire = todo_data.date_expire
+                todo.status_done = todo_data.status_done
+                todo.email_user = todo_data.email_user
+                todo.priority = todo_data.priority
+                todo.favorite = todo_data.favorite
 
-            session.add(todo)
-
-            todo.title = todo_data.title
-            todo.description = todo_data.description
-            todo.date_created = todo_data.date_created
-            todo.date_expire = todo_data.date_expire
-            todo.status_done = todo_data.status_done
-            todo.email_user = todo_data.email_user
-            todo.priority = todo_data.priority
-
-            query = sql_update(Todo).where(Todo.id == todo_id).values(
-                **todo.dict()).execution_options(synchronize_session="evaluate")
+                    # query = sql_update(Todo).where(Todo.id == todo_id).values(
+                    #     **todo.dict()).execution_options(synchronize_session="evaluate")
 
 
-            await session.execute(query)
-            await db.commit_rollback()
+                    # await session.execute(query)
+                    # await db.commit_rollback()
 
 
     @staticmethod
@@ -104,7 +100,9 @@ class TodoRepository:
         Args:
             todo_id (int): _description_
         """
-        async with db as session:
-            query = sql_delete(Todo).where(Todo.id == todo_id)
-            await session.execute(query)
-            await db.commit_rollback()
+        async with db as session, session.begin():
+            stmt = select(Todo).where(Todo.id == todo_id)
+            result = await session.execute(stmt)
+            todo = result.scalars().first()
+            if todo:
+                await session.delete(todo)

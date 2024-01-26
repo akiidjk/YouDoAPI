@@ -28,6 +28,7 @@ class TodoService:
         todo.status_done = todo_data.status_done
         todo.email_user = todo_data.email_user
         todo.priority = todo_data.priority
+        todo.favorite = todo_data.favorite
 
         await TodoRepository.create(todo)
         return TodoType(id = todo.id,
@@ -37,7 +38,7 @@ class TodoService:
                              date_created=todo.date_created,
                              status_done=todo.status_done,
                              email_user=todo.email_user,
-                             priority=todo.priority)
+                             priority=todo.priority,favorite=todo.favorite)
 
     @staticmethod
     async def get_all():
@@ -54,7 +55,8 @@ class TodoService:
                              date_created=todo.date_created,
                              status_done=todo.status_done,
                              email_user=todo.email_user,
-                             priority=todo.priority) for todo in list_daily_todo]
+                             priority=todo.priority,
+                             favorite=todo.favorite) for todo in list_daily_todo]
 
     @staticmethod
     async def get_by_id(todo_id:int) -> TodoType:
@@ -74,7 +76,8 @@ class TodoService:
                              date_created=todo.date_created,
                              status_done=todo.status_done,
                              email_user=todo.email_user,
-                             priority=todo.priority)
+                             priority=todo.priority,
+                             favorite=todo.favorite)
 
     @staticmethod
     async def get_by_email(todo_email:str) -> list[TodoType]:
@@ -94,7 +97,8 @@ class TodoService:
                              date_created=todo.date_created,
                              status_done=todo.status_done,
                              email_user=todo.email_user,
-                             priority=todo.priority) for todo in list_daily_todo]
+                             priority=todo.priority,
+                             favorite=todo.favorite) for todo in list_daily_todo]
 
     @staticmethod
     async def delete(todo_id: int) -> int:
@@ -128,5 +132,7 @@ class TodoService:
         todo.status_done = todo_data.status_done
         todo.email_user = todo_data.email_user
         todo.priority = todo_data.priority
+        todo.favorite = todo_data.favorite
+
         await TodoRepository.update(todo_id,todo)
         return f'Successfully updated data by id {todo_id}'

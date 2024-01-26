@@ -16,4 +16,6 @@ class Todo(SQLModel, table=True):
     status_done:bool
     email_user:str
     priority:int
+    favorite:bool
+
 

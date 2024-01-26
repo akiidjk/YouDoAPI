@@ -20,6 +20,7 @@ class TodoType:
     status_done:bool
     email_user:str
     priority:int
+    favorite:bool
 
 
 # * When put a element
@@ -34,4 +35,6 @@ class TodoInput:
     status_done:bool
     email_user:str
     priority:int
+    favorite:bool
+
 
