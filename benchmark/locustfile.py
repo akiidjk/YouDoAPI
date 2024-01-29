@@ -4,14 +4,15 @@ from locust import HttpUser, task, between
 
 
 def genera_stringa_casuale(lunghezza, caratteri=string.ascii_letters + string.digits):
-    """Genera una stringa casuale."""
     return ''.join(random.choice(caratteri) for _ in range(lunghezza))
 
 class ApiUser(HttpUser):
+    """Class that inherits from the HttpUser class from Locust."""
     wait_time = between(1, 5)
 
     @task(1)
     def get(self):
+        """This function sends a GET request to the specified GraphQL endpoint to retrieve all todo items."""
         query = '''
         query MyQuery {
             getAllTodo {
@@ -30,6 +31,7 @@ class ApiUser(HttpUser):
 
     @task(2)
     def create(self):
+        """Method to create a new todo item using a GraphQL mutation. It generates random values for the title, description, and email, and sends a POST request to the GraphQL endpoint."""
         mutation = '''
         mutation MyMutation {{
             createTodo(
@@ -52,6 +54,7 @@ class ApiUser(HttpUser):
 
     @task(3)
     def update(self):
+        """Function to update a todo item using a GraphQL mutation."""
         mutation = '''
         mutation MyMutation {{
             updateTodo(
@@ -65,15 +68,17 @@ class ApiUser(HttpUser):
 
     @task(4)
     def delete(self):
+        """A function to delete a todo using a GraphQL mutation."""
         mutation = f'''
         mutation MyMutation {{
                 deleteTodo(id: {random.randint(1,200)})
                 }}
         '''
         self.client.post("/graphql", json={"query": mutation})
-        
+
     @task(5)
     def read(self):
+        """This function reads data from the GraphQL API using a specified query."""
         mutation = '''
         query MyQuery {
                 getAllTodo {
@@ -90,12 +95,3 @@ class ApiUser(HttpUser):
             }
         '''
         self.client.post("/graphql", json={"query": mutation})
-
-    # @task(2)
-    # def update(self):
-    #     payload = {
-    #         "name": "example_item",
-    #         "description": "Just a test item"
-    #     }
-    #     headers = {'Content-Type': 'application/json'}
-    #     self.client.post("/api/v1/create", json=payload, headers=headers)
