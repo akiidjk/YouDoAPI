@@ -1,4 +1,6 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import Relationship, SQLModel, Field
+
+from model.user import User
 class Todo(SQLModel, table=True):
     """This is a the model for the table in the DB.
 
@@ -14,8 +16,9 @@ class Todo(SQLModel, table=True):
     date_created:str
     date_expire:str
     status_done:bool
-    email_user:str
     priority:int
     favorite:bool
+    user_id: int = Field(foreign_key="users.id")
+    user: "User" = Relationship(back_populates="todos")
 
 

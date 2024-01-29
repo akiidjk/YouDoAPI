@@ -5,9 +5,6 @@
 
 import strawberry
 
-
-
-
 # * When get a row
 @strawberry.type
 class TodoType:
@@ -18,13 +15,18 @@ class TodoType:
     date_created:str
     date_expire:str
     status_done:bool
-    email_user:str
+    user_id:int
     priority:int
     favorite:bool
 
+@strawberry.type
+class UserType:
+    """Class to represent the data of User in the graphql query."""
+    id:int
+    email:str
+
 
 # * When put a element
-
 @strawberry.input
 class TodoInput:
     """Class to represent the data in the mutation query."""
@@ -33,8 +35,13 @@ class TodoInput:
     date_created:str
     date_expire:str
     status_done:bool
-    email_user:str
+    user_id:int
     priority:int
     favorite:bool
+
+@strawberry.input
+class UserInput:
+    """Class to represent the data in the mutation query."""
+    email:str
 
 
