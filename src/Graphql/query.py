@@ -65,3 +65,15 @@ class Query:
             DailyTodoType: _description_
         """
         return await UserService.get_by_id(id)
+
+    @strawberry.field
+    async def get_by_email_user(self,email:str) -> UserType:
+        """Get one user data by id.
+
+        Args:
+            email (str): _description_
+
+        Returns:
+            DailyTodoType: _description_
+        """
+        return await UserService.get_by_email(email)

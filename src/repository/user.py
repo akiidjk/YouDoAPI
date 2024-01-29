@@ -7,7 +7,7 @@ class UserRepository:
     """Repository class for the user entity."""
 
     @staticmethod
-    async def create(user_data:User):
+    async def create(user_data:User) -> int:
         """Method to insert a new user into the database.
 
         Args:
@@ -19,8 +19,10 @@ class UserRepository:
             existing_user_data = existing_user.scalars().first()
             if not existing_user_data:
                 session.add(user_data)
+                return user_data.id
             print("User already exists!")
-            return None
+            return existing_user_data.id
+
     @staticmethod
     async def get_by_id(user_id:int) -> User:
         """Method to retrieve a user by its id.
@@ -33,6 +35,22 @@ class UserRepository:
         """
         async with db as session:
             stmt = select(User).where(User.id == user_id)
+            result = await session.execute(stmt)
+            user = result.scalars().first()
+            return user
+
+    @staticmethod
+    async def get_by_email(user_email:str) -> User:
+        """Method to retrieve a user by its id.
+
+        Args:
+            user_email (str): The email of the user to retrieve.
+
+        Returns:
+            User: _description_
+        """
+        async with db as session:
+            stmt = select(User).where(User.email == user_email)
             result = await session.execute(stmt)
             user = result.scalars().first()
             return user

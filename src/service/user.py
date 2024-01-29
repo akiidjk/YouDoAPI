@@ -21,7 +21,10 @@ class UserService:
         """
         user = User()
         user.email = user_data.email
-        await UserRepository.create(user)
+        id_user = await UserRepository.create(user)
+        if(user.id is None):
+            return UserType(id = id_user,
+                            email = None)
         return UserType(id = user.id,
                             email = user.email)
 
@@ -48,6 +51,19 @@ class UserService:
             _type_: _description_
         """
         user = await UserRepository.get_by_id(user_id)
+        return UserType(id = user.id,
+                        email = user.email)
+    @staticmethod
+    async def get_by_email(user_email:str) -> UserType:
+        """Get an specific test by its id.
+
+        Args:
+            user_email (int): The id of the user
+
+        Returns:
+            _type_: _description_
+        """
+        user = await UserRepository.get_by_email(user_email)
         return UserType(id = user.id,
                         email = user.email)
 
