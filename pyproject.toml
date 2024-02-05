@@ -36,7 +36,7 @@ strawberry-graphql = {extras = ["fastapi"], version = "^0.217.1"}
 asyncpg = "^0.29.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.1.5"
+ruff = "^0.2.0"
 coverage = "^7.3.2"
 locust = "^2.20.1"
 
