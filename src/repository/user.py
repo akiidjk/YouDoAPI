@@ -1,4 +1,6 @@
+from uuid import UUID
 from sqlalchemy.sql import select
+
 from config import db
 from model.user import User
 
@@ -24,7 +26,7 @@ class UserRepository:
             return existing_user_data.id
 
     @staticmethod
-    async def get_by_id(user_id:int) -> User:
+    async def get_by_id(user_id: UUID) -> User:
         """Method to retrieve a user by its id.
 
         Args:
@@ -68,7 +70,7 @@ class UserRepository:
             return result.scalars().all()
 
     @staticmethod
-    async def update(user_id: int, user_data: User):
+    async def update(user_id: UUID, user_data: User):
         """Method to update an existing user entry in the DB.
 
         Args:
@@ -83,7 +85,7 @@ class UserRepository:
                 user.email = user_data.email
 
     @staticmethod
-    async def delete(user_id: int):
+    async def delete(user_id: UUID):
         """Method to remove a specific user from the database.
 
         Args:

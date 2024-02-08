@@ -1,4 +1,6 @@
 from sqlmodel import Relationship, SQLModel, Field
+from uuid import uuid4,UUID
+
 class User(SQLModel, table=True):
     """This is a the model for the table in the DB.
 
@@ -8,8 +10,9 @@ class User(SQLModel, table=True):
     """
     __tablename__ = "users"
 
-    id: int | None = Field(None,primary_key=True,nullable=True)
+    id: UUID =Field(default_factory=uuid4, primary_key=True)
     email:str
     todos: list["Todo"] = Relationship(back_populates="user")
+    pomodoros: list["Pomodoro"] = Relationship(back_populates="user")
 
 
