@@ -39,7 +39,7 @@ uuid = "^1.30"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.5"
 coverage = "^7.3.2"
-locust = "^2.20.1"
+locust = "^2.22.0"
 
 
 # ------ CONFIG OF RUFF  --------
