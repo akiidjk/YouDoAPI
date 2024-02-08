@@ -1,5 +1,7 @@
-from sqlmodel import Relationship, SQLModel, Field
+from datetime import datetime
 
+from sqlmodel import Relationship, SQLModel, Field
+from uuid import UUID, uuid4
 from model.user import User
 class Todo(SQLModel, table=True):
     """This is a the model for the table in the DB.
@@ -10,15 +12,15 @@ class Todo(SQLModel, table=True):
     """
     __tablename__ = "dailyTodo"
 
-    id: int | None = Field(None,primary_key=True,nullable=True)
+    id: UUID =Field(default_factory=uuid4, primary_key=True)
     title: str
     description:str | None
-    date_created:str
-    date_expire:str
+    datetime_created: datetime = Field(sa_column_kwargs={"nullable": False})
+    datetime_expire: datetime = Field(sa_column_kwargs={"nullable": False})
     status_done:bool
     priority:int
     favorite:bool
-    user_id: int = Field(foreign_key="users.id")
+    user_id: UUID = Field(foreign_key="users.id")
     user: "User" = Relationship(back_populates="todos")
 
 

@@ -1,17 +1,19 @@
+from uuid import UUID
 from sqlalchemy.sql import select
+
 from config import db
 from model.dailyTodo import Todo
 
 
 class TodoRepository:
-    """This class represents the repository for test objects. It provides methods to perform CRUD operations on test.
+    """This class represents the repository for todo objects. It provides methods to perform CRUD operations on todo.
 
     Returns:
         _type_: _description_
     """
     @staticmethod
     async def create(todo_data:Todo):
-        """Method to insert a new test into the database.
+        """Method to insert a new todo into the database.
 
         Args:
             todo_data (DailyTodo): _description_
@@ -20,11 +22,11 @@ class TodoRepository:
             session.add(todo_data)
 
     @staticmethod
-    async def get_by_id(todo_id:int) -> Todo:
-        """Method to retrieve a test by its id.
+    async def get_by_id(todo_id: UUID) -> Todo:
+        """Method to retrieve a todo by its id.
 
         Args:
-            todo_id (Test): _description_
+            todo_id (todo): _description_
 
         Returns:
             _type_: _description_
@@ -36,11 +38,11 @@ class TodoRepository:
             return todo
 
     @staticmethod
-    async def get_by_user(todo_user:str) -> list[Todo]:
-        """Method to retrieve a test by its id.
+    async def get_by_user(todo_user:UUID) -> list[Todo]:
+        """Method to retrieve a todo by its id.
 
         Args:
-            todo_user (Test): _description_
+            todo_user (todo): _description_
 
         Returns:
             _type_: _description_
@@ -63,12 +65,12 @@ class TodoRepository:
             return result.scalars().all()
 
     @staticmethod
-    async def update(todo_id: int, todo_data: Todo):
+    async def update(todo_id: UUID, todo_data: Todo):
         """Method to update an existing todo entry in the DB.
 
         Args:
             todo_id (int): _description_
-            todo_data (Test): _description_
+            todo_data (todo): _description_
         """
         async with db as session, session.begin():
             stmt = select(Todo).where(Todo.id == todo_id)
@@ -86,7 +88,7 @@ class TodoRepository:
 
 
     @staticmethod
-    async def delete(todo_id: int):
+    async def delete(todo_id: UUID):
         """Method to remove a specific todo from the database.
 
         Args:
