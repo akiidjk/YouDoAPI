@@ -79,8 +79,8 @@ class TodoRepository:
             if todo:
                 todo.title = todo_data.title
                 todo.description = todo_data.description
-                todo.date_created = todo_data.date_created
-                todo.date_expire = todo_data.date_expire
+                todo.datetime_created = todo_data.datetime_created
+                todo.datetime_expire = todo_data.datetime_expire
                 todo.status_done = todo_data.status_done
                 todo.user_id = todo_data.user_id
                 todo.priority = todo_data.priority
