@@ -85,6 +85,7 @@ class TodoRepository:
                 todo.user_id = todo_data.user_id
                 todo.priority = todo_data.priority
                 todo.favorite = todo_data.favorite
+                todo.category = todo_data.category
 
 
     @staticmethod
