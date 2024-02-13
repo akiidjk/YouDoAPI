@@ -22,7 +22,6 @@ class UserRepository:
             if not existing_user_data:
                 session.add(user_data)
                 return user_data.id
-            print("User already exists!")
             return existing_user_data.id
 
     @staticmethod

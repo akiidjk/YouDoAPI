@@ -25,7 +25,7 @@ class UserService:
         if(user.id is None):
             return UserType(id = id_user,
                             email = None)
-        return UserType(id = user.id,
+        return UserType(id = id_user,
                             email = user.email)
 
     @staticmethod
