@@ -30,6 +30,7 @@ class TodoService:
         todo.user_id = todo_data.user_id
         todo.priority = todo_data.priority
         todo.favorite = todo_data.favorite
+        todo.category = todo_data.category
 
         await TodoRepository.create(todo)
         return TodoType(id = todo.id,
@@ -39,7 +40,9 @@ class TodoService:
                             datetime_created=todo.datetime_created,
                             status_done=todo.status_done,
                             user_id=todo.user_id,
-                            priority=todo.priority,favorite=todo.favorite)
+                            priority=todo.priority,
+                            favorite=todo.favorite,
+                            category=todo.category)
 
     @staticmethod
     async def get_all():
@@ -52,12 +55,13 @@ class TodoService:
         return [TodoType(id = todo.id,
                              title = todo.title,
                              description = todo.description,
-                             datetime_expire= todo.datetime_expire,
-                             datetime_created=todo.datetime_created,
-                             status_done=todo.status_done,
-                             user_id=todo.user_id,
-                             priority=todo.priority,
-                             favorite=todo.favorite) for todo in list_daily_todo]
+                             datetime_expire = todo.datetime_expire,
+                             datetime_created = todo.datetime_created,
+                             status_done = todo.status_done,
+                             user_id = todo.user_id,
+                             priority = todo.priority,
+                             favorite = todo.favorite,
+                             category = todo.category) for todo in list_daily_todo]
 
     @staticmethod
     async def get_by_id(todo_id:UUID) -> TodoType:
@@ -73,12 +77,13 @@ class TodoService:
         return TodoType(id = todo.id,
                              title = todo.title,
                              description = todo.description,
-                             datetime_expire= todo.datetime_expire,
-                             datetime_created=todo.datetime_created,
-                             status_done=todo.status_done,
-                             user_id=todo.user_id,
-                             priority=todo.priority,
-                             favorite=todo.favorite)
+                             datetime_expire = todo.datetime_expire,
+                             datetime_created = todo.datetime_created,
+                             status_done = todo.status_done,
+                             user_id = todo.user_id,
+                             priority = todo.priority,
+                             favorite = todo.favorite,
+                             category = todo.category)
 
     @staticmethod
     async def get_by_user(todo_user:UUID) -> list[TodoType]:
@@ -94,12 +99,13 @@ class TodoService:
         return [TodoType(id = todo.id,
                              title = todo.title,
                              description = todo.description,
-                             datetime_expire= todo.datetime_expire,
-                             datetime_created=todo.datetime_created,
-                             status_done=todo.status_done,
-                             user_id=todo.user_id,
-                             priority=todo.priority,
-                             favorite=todo.favorite) for todo in list_daily_todo]
+                             datetime_expire = todo.datetime_expire,
+                             datetime_created = todo.datetime_created,
+                             status_done = todo.status_done,
+                             user_id = todo.user_id,
+                             priority = todo.priority,
+                             favorite = todo.favorite,
+                             category = todo.category) for todo in list_daily_todo]
 
     @staticmethod
     async def delete(todo_id: UUID) -> int:
@@ -134,6 +140,7 @@ class TodoService:
         todo.user_id = todo_data.user_id
         todo.priority = todo_data.priority
         todo.favorite = todo_data.favorite
+        todo.category = todo_data.category
 
         await TodoRepository.update(todo_id,todo)
         return f'Successfully updated data by id {todo_id}'

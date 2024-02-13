@@ -14,12 +14,13 @@ class Todo(SQLModel, table=True):
 
     id: UUID =Field(default_factory=uuid4, primary_key=True)
     title: str
-    description:str | None
+    description: str | None
     datetime_created: datetime = Field(sa_column_kwargs={"nullable": False})
     datetime_expire: datetime = Field(sa_column_kwargs={"nullable": False})
-    status_done:bool
-    priority:int
-    favorite:bool
+    status_done: bool
+    priority: int
+    favorite: bool
+    category: str | None
     user_id: UUID = Field(foreign_key="users.id")
     user: "User" = Relationship(back_populates="todos")
 

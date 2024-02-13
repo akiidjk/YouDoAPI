@@ -13,14 +13,15 @@ import strawberry
 class TodoType:
     """Class to represent the data of todoDaily in the graphql query."""
     id: UUID
-    title:str
-    description:str
-    datetime_created:datetime
-    datetime_expire:datetime
-    status_done:bool
-    user_id:UUID
-    priority:int
-    favorite:bool
+    title: str
+    description: str | None
+    datetime_created: datetime
+    datetime_expire: datetime
+    status_done: bool
+    user_id: UUID
+    priority: int
+    favorite: bool
+    category: str | None
 
 @strawberry.type
 class UserType:
@@ -32,7 +33,7 @@ class UserType:
 class PomodoroType:
     """Class to represent the data of User in the graphql query."""
     id: UUID
-    date_time:datetime
+    date_time: datetime
     duration:int
     user_id: UUID
 
@@ -40,14 +41,15 @@ class PomodoroType:
 @strawberry.input
 class TodoInput:
     """Class to represent the data in the mutation query."""
-    title:str
-    description:str
-    datetime_created:datetime
-    datetime_expire:datetime
-    status_done:bool
-    user_id:UUID
-    priority:int
-    favorite:bool
+    title: str
+    description: str | None
+    datetime_created: datetime
+    datetime_expire: datetime
+    status_done: bool
+    user_id: UUID
+    priority: int
+    favorite: bool
+    category: str | None
 
 @strawberry.input
 class UserInput:
