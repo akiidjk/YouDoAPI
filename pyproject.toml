@@ -32,7 +32,7 @@ sqlmodel = "^0.0.14"
 sqlalchemy = "^2.0.25"
 psycopg2 = "^2.9.9"
 python-dotenv = "^1.0.0"
-strawberry-graphql = {extras = ["fastapi"], version = "^0.217.1"}
+strawberry-graphql = {extras = ["fastapi"], version = "^0.219.2"}
 asyncpg = "^0.29.0"
 uuid = "^1.30"
 bleach = "^6.1.0"
