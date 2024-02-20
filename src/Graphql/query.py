@@ -113,7 +113,7 @@ class Query:
 
     @strawberry.field
     async def get_all_categories(self, user_id: UUID) -> CategoriesType:
-        """Get one todo data by email.
+        """Get one category data by email.
 
         Args:
             user_id (int): The email of user

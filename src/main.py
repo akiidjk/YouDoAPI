@@ -10,6 +10,7 @@ from config import db
 from Graphql.mutation import Mutation
 from Graphql.query import Query
 
+
 def init_app():
     """Initialize the FastAPI application."""
 
@@ -28,12 +29,12 @@ def init_app():
 
     @app.get('/')
     def home():
-        return {'message':'The api is online'}
+        return {'message': 'The api is online'}
 
-    schema = strawberry.Schema(query=Query,mutation=Mutation)
+    schema = strawberry.Schema(query=Query, mutation=Mutation)
     graphql_app = GraphQLRouter(schema)
 
-    app.include_router(graphql_app,prefix="/graphql")
+    app.include_router(graphql_app, prefix="/graphql")
 
     return app
 
@@ -41,4 +42,4 @@ def init_app():
 app = init_app()
 
 if __name__ == '__main__':
-    uvicorn.run(app='main:app',host="localhost",port=8081,reload=False)
+    uvicorn.run(app='main:app', host="localhost", port=8081, reload=False)
