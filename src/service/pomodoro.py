@@ -4,6 +4,7 @@ from model.pomodoro import Pomodoro
 from repository.pomodoro import PomodoroRepository
 from schema import PomodoroInput, PomodoroType
 
+
 class PomodoroService:
     """Service class for the pomodoro entity. This class is responsible to manage all operations related with pomodoros in.
 
@@ -12,7 +13,7 @@ class PomodoroService:
     """
 
     @staticmethod
-    async def create(pomodoro_data:PomodoroInput):
+    async def create(pomodoro_data: PomodoroInput):
         """Create a new pomodoro in the database.
 
         Args:
@@ -24,10 +25,11 @@ class PomodoroService:
         pomodoro.duration = pomodoro_data.duration
 
         await PomodoroRepository.create(pomodoro)
-        return PomodoroType(id = pomodoro.id,
-                           date_time=pomodoro.date_time,
-                           duration=pomodoro.duration,
-                           user_id=pomodoro.user_id)
+        return PomodoroType(id=pomodoro.id,
+                            date_time=pomodoro.date_time,
+                            duration=pomodoro.duration,
+                            user_id=pomodoro.user_id)
+
     @staticmethod
     async def delete(pomodoro_id: UUID) -> UUID:
         """Method to remove a specific pomodoro from the database.
@@ -39,7 +41,7 @@ class PomodoroService:
         return pomodoro_id
 
     @staticmethod
-    async def update(pomodoro_id:UUID,pomodoro_data:PomodoroInput)-> str:
+    async def update(pomodoro_id: UUID, pomodoro_data: PomodoroInput) -> str:
         """Method to update an existing pomodoro entry in the DB.
 
         Args:
@@ -54,26 +56,12 @@ class PomodoroService:
         pomodoro.duration = pomodoro_data.duration
         pomodoro.user_id = pomodoro_data.user_id
 
-        await PomodoroRepository.update(pomodoro_id,pomodoro)
+        await PomodoroRepository.update(pomodoro_id, pomodoro)
         return f'Successfully updated data by id {pomodoro_id}'
 
 
-
     @staticmethod
-    async def get_all():
-        """Get all pomodoro from the database.
-
-        Returns:
-            _type_: _description_
-        """
-        list_daily_pomodoro = await PomodoroRepository.get_all()
-        return [PomodoroType(id = pomodoro.id,
-                             date_time = pomodoro.date_time,
-                             duration = pomodoro.duration,
-                             user_id = pomodoro.user_id) for pomodoro in list_daily_pomodoro]
-
-    @staticmethod
-    async def get_by_id(pomodoro_id:UUID) -> PomodoroType:
+    async def get_by_id(pomodoro_id: UUID) -> PomodoroType:
         """Get an specific pomodoro by its id.
 
         Args:
@@ -83,13 +71,13 @@ class PomodoroService:
             _type_: _description_
         """
         pomodoro = await PomodoroRepository.get_by_id(pomodoro_id)
-        return PomodoroType(id = pomodoro.id,
-                             date_time = pomodoro.date_time,
-                             duration = pomodoro.duration,
-                             user_id = pomodoro.user_id)
+        return PomodoroType(id=pomodoro.id,
+                            date_time=pomodoro.date_time,
+                            duration=pomodoro.duration,
+                            user_id=pomodoro.user_id)
 
     @staticmethod
-    async def get_by_user(pomodoro_user:UUID) -> list[PomodoroType]:
+    async def get_by_user(pomodoro_user: UUID) -> list[PomodoroType]:
         """Get an specific pomodoro by its id.
 
         Args:
@@ -99,12 +87,13 @@ class PomodoroService:
             _type_: _description_
         """
         list_pomodoro = await PomodoroRepository.get_by_user(pomodoro_user)
-        return [PomodoroType(id = pomodoro.id,
-                             date_time = pomodoro.date_time,
-                             duration = pomodoro.duration,
-                             user_id = pomodoro.user_id) for pomodoro in list_pomodoro]
+        return [PomodoroType(id=pomodoro.id,
+                             date_time=pomodoro.date_time,
+                             duration=pomodoro.duration,
+                             user_id=pomodoro.user_id) for pomodoro in list_pomodoro]
+
     @staticmethod
-    async def get_by_month(pomodoro_user:UUID,pomodoro_date:datetime) -> list[PomodoroType]:
+    async def get_by_month(pomodoro_user: UUID, pomodoro_date: datetime) -> list[PomodoroType]:
         """Get the pomodoros by the month.
 
         Args:
@@ -114,8 +103,8 @@ class PomodoroService:
         Returns:
             list[PomodoroType]: _description_
         """
-        list_pomodoro = await PomodoroRepository.get_by_month(pomodoro_user,pomodoro_date)
-        return [PomodoroType(id = pomodoro.id,
-                                    date_time = pomodoro.date_time,
-                                    duration = pomodoro.duration,
-                                    user_id = pomodoro.user_id) for pomodoro in list_pomodoro]
+        list_pomodoro = await PomodoroRepository.get_by_month(pomodoro_user, pomodoro_date)
+        return [PomodoroType(id=pomodoro.id,
+                             date_time=pomodoro.date_time,
+                             duration=pomodoro.duration,
+                             user_id=pomodoro.user_id) for pomodoro in list_pomodoro]
