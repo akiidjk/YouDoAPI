@@ -1,5 +1,5 @@
 #######################################################
-# ! The file declare the two type for the GraphQL quey #
+# ! The file declare the two types for the GraphQL query #
 #######################################################
 
 from datetime import datetime
@@ -48,7 +48,7 @@ class CategoriesType:
     user_id: UUID
 
 
-# * When put a element
+# * When put an element
 @strawberry.input
 class TodoInput:
     """Class to represent the data in the mutation query."""

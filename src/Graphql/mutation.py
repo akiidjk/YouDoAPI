@@ -31,29 +31,29 @@ class Mutation:
         return await TodoService.create(todo_data=todo_data)
 
     @strawberry.mutation
-    async def delete_todo(self, id: UUID) -> UUID:
+    async def delete_todo(self, id_todo: UUID) -> UUID:
         """Delete an existing todo case by its id.
 
         Args:
-            id (int): _description_
+            id_todo (UUID): _description_
 
         Returns:
             str: _description_
         """
-        return await TodoService.delete(id)
+        return await TodoService.delete(id_todo)
 
     @strawberry.mutation
-    async def update_todo(self, id: UUID, todo_data: TodoInput) -> str:
+    async def update_todo(self, id_todo: UUID, todo_data: TodoInput) -> str:
         """Update an existing todo case's information.
 
         Args:
-            id (int): _description_
+            id_todo (UUID): _description_
             todo_data (userInput): _description_
 
         Returns:
             str: _description_
         """
-        return await TodoService.update(id, todo_data)
+        return await TodoService.update(id_todo, todo_data)
 
     # * User mutation
 
@@ -70,29 +70,29 @@ class Mutation:
         return await UserService.create(user_data=user_data)
 
     @strawberry.mutation
-    async def delete_user(self, id: UUID) -> UUID:
+    async def delete_user(self, user_id: UUID) -> UUID:
         """Delete an existing user case by its id.
 
         Args:
-            id (int): _description_
+            user_id (int): _description_
 
         Returns:
             str: _description_
         """
-        return await UserService.delete(id)
+        return await UserService.delete(user_id)
 
     @strawberry.mutation
-    async def update_user(self, id: UUID, user_data: UserInput) -> str:
+    async def update_user(self, user_id: UUID, user_data: UserInput) -> str:
         """Update an existing user case's information.
 
         Args:
-            id (int): _description_
+            user_id (int): _description_
             user_data (userInput): _description_
 
         Returns:
             str: _description_
         """
-        return await UserService.update(id, user_data)
+        return await UserService.update(user_id, user_data)
 
     # * Pomodoro mutation
 
@@ -109,29 +109,29 @@ class Mutation:
         return await PomodoroService.create(pomodoro_data=pomodoro_data)
 
     @strawberry.mutation
-    async def delete_pomodoro(self, id: UUID) -> UUID:
+    async def delete_pomodoro(self, pomodoro_id: UUID) -> UUID:
         """Delete an existing user case by its id.
 
         Args:
-            id (int): _description_
+            pomodoro_id (int): _description_
 
         Returns:
             str: _description_
         """
-        return await PomodoroService.delete(id)
+        return await PomodoroService.delete(pomodoro_id)
 
     @strawberry.mutation
-    async def update_pomodoro(self, id: int, pomodoro_data: PomodoroInput) -> str:
+    async def update_pomodoro(self, pomodoro_id: UUID, pomodoro_data: PomodoroInput) -> str:
         """Update an existing user case's information.
 
         Args:
-            id (int): _description_
+            pomodoro_id (int): _description_
             pomodoro_data (PomodoroInput): _description_
 
         Returns:
             str: _description_
         """
-        return await PomodoroService.update(id, pomodoro_data=pomodoro_data)
+        return await PomodoroService.update(pomodoro_id, pomodoro_data=pomodoro_data)
 
     @strawberry.mutation
     async def create_category(self, category_data: CategoriesInput) -> CategoriesType:
@@ -146,29 +146,16 @@ class Mutation:
         return await CategoryService.create(category_data=category_data)
 
     @strawberry.mutation
-    async def delete_category(self, id: UUID) -> UUID:
+    async def delete_category(self, id_category: UUID) -> UUID:
         """Delete an existing user case by its id.
 
         Args:
-            id (int): _description_
+            id_category (int): _description_
 
         Returns:
             str: _description_
         """
-        return await CategoryService.delete(id)
-
-    @strawberry.mutation
-    async def update_category(self, id: int, category_data: CategoriesInput) -> str:
-        """Update an existing user case's information.
-
-        Args:
-            id (int): _description_
-            category_data (PomodoroInput): _description_
-
-        Returns:
-            str: _description_
-        """
-        return await CategoryService.update(id, category_data=category_data)
+        return await CategoryService.delete(id_category)
 
     @strawberry.mutation
     async def add_category_categories(self, user_id: UUID, category: str) -> UUID:
@@ -193,5 +180,3 @@ class Mutation:
 
         """
         return await CategoryService.remove_category(user_id, category)
-
-

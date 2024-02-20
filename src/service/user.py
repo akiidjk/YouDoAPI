@@ -32,8 +32,8 @@ class UserService:
                         email=user.email)
 
     @staticmethod
-    async def get_by_id(user_id: int) -> UserType:
-        """Get an specific test by its id.
+    async def get_by_id(user_id: UUID) -> UserType:
+        """Get a specific test by its id.
 
         Args:
             user_id (int): The id of the user

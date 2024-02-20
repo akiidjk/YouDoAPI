@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+
 from uuid import UUID
 import strawberry
 
@@ -33,30 +33,30 @@ class Query:
         return await TodoService.get_by_user(user_id)
 
     @strawberry.field
-    async def get_by_id_todo(self, id: UUID) -> TodoType:
+    async def get_by_id_todo(self, id_todo: UUID) -> TodoType:
         """Get one todo data by id.
 
         Args:
-            id (int): _description_
+            id_todo (int): _description_
 
         Returns:
             DailyTodoType: _description_
         """
-        return await TodoService.get_by_id(id)
+        return await TodoService.get_by_id(id_todo)
 
     # * User Query
 
     @strawberry.field
-    async def get_by_id_user(self, id: UUID) -> UserType:
+    async def get_by_id_user(self, id_user: UUID) -> UserType:
         """Get one user data by id.
 
         Args:
-            id (int): _description_
+            id_user (int): _description_
 
         Returns:
             DailyTodoType: _description_
         """
-        return await UserService.get_by_id(id)
+        return await UserService.get_by_id(id_user)
 
     @strawberry.field
     async def get_by_email_user(self, email: str) -> UserType:
@@ -73,16 +73,16 @@ class Query:
     # * Pomodoro Query
 
     @strawberry.field
-    async def get_by_id_pomodoro(self, id: UUID) -> PomodoroType:
+    async def get_by_id_pomodoro(self, id_pomodoro: UUID) -> PomodoroType:
         """Get one user data by id.
 
         Args:
-            id (int): _description_
+            id_pomodoro (int): _description_
 
         Returns:
             DailyTodoType: _description_
         """
-        return await PomodoroService.get_by_id(id)
+        return await PomodoroService.get_by_id(id_pomodoro)
 
     @strawberry.field
     async def get_by_user_pomodoro(self, user_id: UUID) -> list[PomodoroType]:
@@ -121,4 +121,4 @@ class Query:
         Returns:
             DailyTodoType: _description_
         """
-        return await CategoryService.get_all(user_id)
+        return await CategoryService.get_by_user(user_id)

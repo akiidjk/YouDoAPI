@@ -12,13 +12,13 @@ class CategoryService:
     """
 
     @staticmethod
-    async def get_all(user_id: UUID) -> CategoriesType:
+    async def get_by_user(user_id: UUID) -> CategoriesType:
         """Get all categories from the database.
 
         Returns:
             _type_: _description_
         """
-        category = await CategoriesRepository.get_all(user_id=user_id)
+        category = await CategoriesRepository.get_by_user(user_id=user_id)
         return CategoriesType(id=category.id,
                               categories=category.categories,
                               user_id=category.user_id)
@@ -28,10 +28,10 @@ class CategoryService:
         """Create a new category in the database.
 
         Args:
-            category_data (CategoriesInput): _description_
+            category_data (CategoriesInput): The category model input
 
         Returns:
-            _type_: _description_
+            CategoriesType: The category model output
         """
         category = Categories()
         category.categories = category_data.categories
@@ -42,31 +42,14 @@ class CategoryService:
                               user_id=category.user_id)
 
     @staticmethod
-    async def update(category_id: UUID, category_data: CategoriesInput) -> str:
-        """Update a category on the database with new information.
-
-        Args:
-            category_id (UUID): _description_
-            category_data (CategoriesInput): _description_
-
-        Returns:
-            _type_: _description_
-        """
-        category = Categories()
-        category.categories = category_data.categories
-        category.user_id = category_data.user_id
-        await CategoriesRepository.update(category_id, category)
-        return f'Successfully updated data by id {category_id}'
-
-    @staticmethod
     async def delete(category_id: UUID) -> UUID:
         """Delete a category by its ID.
 
         Args:
-            category_id (UUID): _description_
+            category_id (UUID): The category ID
 
         Returns:
-            _type_: _description_
+            UUID: The category ID
         """
         await CategoriesRepository.delete(category_id)
         return category_id
@@ -74,23 +57,25 @@ class CategoryService:
     @staticmethod
     async def add_category(user_id: UUID, category: str) -> UUID:
         """Add a categories in the array of categories of the user.
+
         Args:
-            user_id:
-            category:
+            user_id (UUID): Id of the user
+            category (str): The name of the category
 
         Returns:
-
+            UUID: The id of the category
         """
         return await CategoriesRepository.add_category(user_id, category)
 
     @staticmethod
     async def remove_category(user_id: UUID, category: str) -> UUID:
         """Add a categories in the array of categories of the user.
+
         Args:
-            user_id:
-            category:
+            user_id (UUID): Id of the user
+            category (str): The name of the category
 
         Returns:
-
+            UUID: The id of the category
         """
         return await CategoriesRepository.remove_category(user_id, category)

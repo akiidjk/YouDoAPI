@@ -79,7 +79,4 @@ class DatabaseSession:
         return self.localSession()
 
 
-
-
-
 db = DatabaseSession()
