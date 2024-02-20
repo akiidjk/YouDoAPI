@@ -18,14 +18,10 @@ class DatabaseSession:
         """The URL of the database server as passed in by the user or read from the env.
 
         Args:
-            url (str, optional): _description_. Defaults to DB_CONFIG.
+            url (str, optional): _description_. Default to DB_CONFIG.
         """
         self.engine = create_async_engine(url=url, echo=True)
-        self.localSession = sessionmaker(
-            bind=self.engine,
-            class_=AsyncSession,
-            expire_on_commit=False
-        )
+        self.localSession = sessionmaker(bind=self.engine, class_=AsyncSession, expire_on_commit=False)
 
     async def create_all(self):
         """Create all tables in the database specified in the MetaData of SQLModel classes."""
@@ -81,6 +77,9 @@ class DatabaseSession:
             AsyncSession: A new session instance.
         """
         return self.localSession()
+
+
+
 
 
 db = DatabaseSession()

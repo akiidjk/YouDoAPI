@@ -25,7 +25,7 @@ class UserService:
         user = User()
         user.email = user_data.email
         id_user = await UserRepository.create(user)
-        if (user.id is None):
+        if user.id is None:
             return UserType(id=id_user,
                             email=None)
         return UserType(id=id_user,
@@ -73,7 +73,7 @@ class UserService:
         return user_id
 
     @staticmethod
-    async def update(user_id: int, user_data: UserInput) -> str:
+    async def update(user_id: UUID, user_data: UserInput) -> str:
         """Update a user on the database with new information.
 
         Args:

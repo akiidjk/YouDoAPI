@@ -59,7 +59,6 @@ class PomodoroService:
         await PomodoroRepository.update(pomodoro_id, pomodoro)
         return f'Successfully updated data by id {pomodoro_id}'
 
-
     @staticmethod
     async def get_by_id(pomodoro_id: UUID) -> PomodoroType:
         """Get an specific pomodoro by its id.
