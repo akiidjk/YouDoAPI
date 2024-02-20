@@ -1,12 +1,12 @@
-
 #######################################################
-#! The file declare the two type for the GraphQL quey #
+# ! The file declare the two type for the GraphQL quey #
 #######################################################
 
 from datetime import datetime
 
 from uuid import UUID
 import strawberry
+
 
 # * When get a row
 @strawberry.type
@@ -23,19 +23,30 @@ class TodoType:
     favorite: bool
     category: str | None
 
+
 @strawberry.type
 class UserType:
     """Class to represent the data of User in the graphql query."""
     id: UUID
-    email:str
+    email: str
+
 
 @strawberry.type
 class PomodoroType:
     """Class to represent the data of User in the graphql query."""
     id: UUID
     date_time: datetime
-    duration:int
+    duration: int
     user_id: UUID
+
+
+@strawberry.type
+class CategoriesType:
+    """Class to represent the data of User in the graphql query."""
+    id: UUID
+    categories: list[str]
+    user_id: UUID
+
 
 # * When put a element
 @strawberry.input
@@ -51,16 +62,23 @@ class TodoInput:
     favorite: bool
     category: str | None
 
+
 @strawberry.input
 class UserInput:
     """Class to represent the data in the mutation query."""
-    email:str
+    email: str
+
 
 @strawberry.input
 class PomodoroInput:
     """Class to represent the data in the mutation query."""
-    date_time:datetime
-    duration:int
-    user_id:UUID
+    date_time: datetime
+    duration: int
+    user_id: UUID
 
 
+@strawberry.input
+class CategoriesInput:
+    """Class to represent the data in the mutation query."""
+    categories: list[str]
+    user_id: UUID
