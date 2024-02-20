@@ -12,7 +12,7 @@ class TodoService:
     """
 
     @staticmethod
-    async def create(todo_data:TodoInput):
+    async def create(todo_data: TodoInput):
         """Create a new todo in the database.
 
         Args:
@@ -33,38 +33,19 @@ class TodoService:
         todo.category = todo_data.category
 
         await TodoRepository.create(todo)
-        return TodoType(id = todo.id,
-                            title = todo.title,
-                            description = todo.description,
-                            datetime_expire= todo.datetime_expire,
-                            datetime_created=todo.datetime_created,
-                            status_done=todo.status_done,
-                            user_id=todo.user_id,
-                            priority=todo.priority,
-                            favorite=todo.favorite,
-                            category=todo.category)
+        return TodoType(id=todo.id,
+                        title=todo.title,
+                        description=todo.description,
+                        datetime_expire=todo.datetime_expire,
+                        datetime_created=todo.datetime_created,
+                        status_done=todo.status_done,
+                        user_id=todo.user_id,
+                        priority=todo.priority,
+                        favorite=todo.favorite,
+                        category=todo.category)
 
     @staticmethod
-    async def get_all():
-        """Get all todo from the database.
-
-        Returns:
-            _type_: _description_
-        """
-        list_daily_todo = await TodoRepository.get_all()
-        return [TodoType(id = todo.id,
-                             title = todo.title,
-                             description = todo.description,
-                             datetime_expire = todo.datetime_expire,
-                             datetime_created = todo.datetime_created,
-                             status_done = todo.status_done,
-                             user_id = todo.user_id,
-                             priority = todo.priority,
-                             favorite = todo.favorite,
-                             category = todo.category) for todo in list_daily_todo]
-
-    @staticmethod
-    async def get_by_id(todo_id:UUID) -> TodoType:
+    async def get_by_id(todo_id: UUID) -> TodoType:
         """Get an specific todo by its id.
 
         Args:
@@ -74,19 +55,19 @@ class TodoService:
             _type_: _description_
         """
         todo = await TodoRepository.get_by_id(todo_id)
-        return TodoType(id = todo.id,
-                             title = todo.title,
-                             description = todo.description,
-                             datetime_expire = todo.datetime_expire,
-                             datetime_created = todo.datetime_created,
-                             status_done = todo.status_done,
-                             user_id = todo.user_id,
-                             priority = todo.priority,
-                             favorite = todo.favorite,
-                             category = todo.category)
+        return TodoType(id=todo.id,
+                        title=todo.title,
+                        description=todo.description,
+                        datetime_expire=todo.datetime_expire,
+                        datetime_created=todo.datetime_created,
+                        status_done=todo.status_done,
+                        user_id=todo.user_id,
+                        priority=todo.priority,
+                        favorite=todo.favorite,
+                        category=todo.category)
 
     @staticmethod
-    async def get_by_user(todo_user:UUID) -> list[TodoType]:
+    async def get_by_user(todo_user: UUID) -> list[TodoType]:
         """Get an specific todo by its id.
 
         Args:
@@ -96,19 +77,19 @@ class TodoService:
             _type_: _description_
         """
         list_daily_todo = await TodoRepository.get_by_user(todo_user)
-        return [TodoType(id = todo.id,
-                             title = todo.title,
-                             description = todo.description,
-                             datetime_expire = todo.datetime_expire,
-                             datetime_created = todo.datetime_created,
-                             status_done = todo.status_done,
-                             user_id = todo.user_id,
-                             priority = todo.priority,
-                             favorite = todo.favorite,
-                             category = todo.category) for todo in list_daily_todo]
+        return [TodoType(id=todo.id,
+                         title=todo.title,
+                         description=todo.description,
+                         datetime_expire=todo.datetime_expire,
+                         datetime_created=todo.datetime_created,
+                         status_done=todo.status_done,
+                         user_id=todo.user_id,
+                         priority=todo.priority,
+                         favorite=todo.favorite,
+                         category=todo.category) for todo in list_daily_todo]
 
     @staticmethod
-    async def delete(todo_id: UUID) -> int:
+    async def delete(todo_id: UUID) -> UUID:
         """Delete a todo by its ID.
 
         Args:
@@ -121,7 +102,7 @@ class TodoService:
         return todo_id
 
     @staticmethod
-    async def update(todo_id:UUID, todo_data: TodoInput) -> str:
+    async def update(todo_id: UUID, todo_data: TodoInput) -> str:
         """Update a todo on the database with new information.
 
         Args:
@@ -142,5 +123,5 @@ class TodoService:
         todo.favorite = todo_data.favorite
         todo.category = todo_data.category
 
-        await TodoRepository.update(todo_id,todo)
+        await TodoRepository.update(todo_id, todo)
         return f'Successfully updated data by id {todo_id}'

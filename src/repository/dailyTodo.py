@@ -1,4 +1,7 @@
 from uuid import UUID
+
+from fastapi import Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql import select
 
 from config import db
@@ -11,15 +14,18 @@ class TodoRepository:
     Returns:
         _type_: _description_
     """
+
     @staticmethod
-    async def create(todo_data:Todo):
+    async def create(todo_data: Todo):
         """Method to insert a new todo into the database.
 
         Args:
             todo_data (DailyTodo): _description_
         """
-        async with db as session, session.begin():
-            session.add(todo_data)
+        session = db.get_new_session()
+        async with session as async_session:
+            async_session.add(todo_data)
+            await async_session.commit()
 
     @staticmethod
     async def get_by_id(todo_id: UUID) -> Todo:
@@ -31,37 +37,28 @@ class TodoRepository:
         Returns:
             _type_: _description_
         """
-        async with db as session:
+        session = db.get_new_session()
+        async with session as async_session:
             stmt = select(Todo).where(Todo.id == todo_id)
-            result = await session.execute(stmt)
+            result = await async_session.execute(stmt)
             todo = result.scalars().first()
             return todo
 
     @staticmethod
-    async def get_by_user(todo_user:UUID) -> list[Todo]:
+    async def get_by_user(todo_user: UUID) -> list[Todo]:
         """Method to retrieve a todo by its id.
 
         Args:
+            session (DBSession): the db session
             todo_user (todo): _description_
 
         Returns:
             _type_: _description_
-        """
-        async with db as session:
+        # """
+        session = db.get_new_session()
+        async with session as async_session:
             stmt = select(Todo).where(Todo.user_id == todo_user)
-            result = await session.execute(stmt)
-            return result.scalars().all()
-
-    @staticmethod
-    async def get_all() -> list[Todo]:
-        """Method to retrieve all todo in the database.
-
-        Returns:
-            list[Todo]: _description_
-        """
-        async with db as session:
-            query = select(Todo)
-            result = await session.execute(query)
+            result = await async_session.execute(stmt)
             return result.scalars().all()
 
     @staticmethod
@@ -72,9 +69,10 @@ class TodoRepository:
             todo_id (int): _description_
             todo_data (todo): _description_
         """
-        async with db as session, session.begin():
+        session = db.get_new_session()
+        async with session as async_session:
             stmt = select(Todo).where(Todo.id == todo_id)
-            result = await session.execute(stmt)
+            result = await async_session.execute(stmt)
             todo = result.scalars().first()
             if todo:
                 todo.title = todo_data.title
@@ -86,6 +84,7 @@ class TodoRepository:
                 todo.priority = todo_data.priority
                 todo.favorite = todo_data.favorite
                 todo.category = todo_data.category
+                await async_session.commit()
 
 
     @staticmethod
@@ -95,9 +94,11 @@ class TodoRepository:
         Args:
             todo_id (int): _description_
         """
-        async with db as session, session.begin():
+        session = db.get_new_session()
+        async with session as async_session:
             stmt = select(Todo).where(Todo.id == todo_id)
-            result = await session.execute(stmt)
+            result = await async_session.execute(stmt)
             todo = result.scalars().first()
             if todo:
-                await session.delete(todo)
+                await async_session.delete(todo)
+                await async_session.commit()
