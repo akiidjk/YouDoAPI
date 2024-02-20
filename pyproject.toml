@@ -23,7 +23,7 @@ authors = ["Retr0100 <dragonfaiver@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.12,<4.0"
+python = ">=3.11,<4.0"
 colorama = "^0.4.6"
 pyfiglet = "^1.0.2"
 fastapi = "^0.109.0"
