@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from model.user import User
 from repository.user import UserRepository
 from schema import UserInput, UserType
@@ -9,8 +11,9 @@ class UserService:
     Returns:
         _type_: _description_
     """
+
     @staticmethod
-    async def create(user_data:UserInput):
+    async def create(user_data: UserInput):
         """Create a new user in the database.
 
         Args:
@@ -22,26 +25,14 @@ class UserService:
         user = User()
         user.email = user_data.email
         id_user = await UserRepository.create(user)
-        if(user.id is None):
-            return UserType(id = id_user,
-                            email = None)
-        return UserType(id = id_user,
-                            email = user.email)
+        if (user.id is None):
+            return UserType(id=id_user,
+                            email=None)
+        return UserType(id=id_user,
+                        email=user.email)
 
     @staticmethod
-    async def get_all():
-        """Get all user from the database.
-
-        Returns:
-            _type_: _description_
-        """
-        list_user = await UserRepository.get_all()
-        return [UserType(id = user.id,
-                             email = user.email,
-                            ) for user in list_user]
-
-    @staticmethod
-    async def get_by_id(user_id:int) -> UserType:
+    async def get_by_id(user_id: int) -> UserType:
         """Get an specific test by its id.
 
         Args:
@@ -51,10 +42,11 @@ class UserService:
             _type_: _description_
         """
         user = await UserRepository.get_by_id(user_id)
-        return UserType(id = user.id,
-                        email = user.email)
+        return UserType(id=user.id,
+                        email=user.email)
+
     @staticmethod
-    async def get_by_email(user_email:str) -> UserType:
+    async def get_by_email(user_email: str) -> UserType:
         """Get an specific test by its id.
 
         Args:
@@ -64,11 +56,11 @@ class UserService:
             _type_: _description_
         """
         user = await UserRepository.get_by_email(user_email)
-        return UserType(id = user.id,
-                        email = user.email)
+        return UserType(id=user.id,
+                        email=user.email)
 
     @staticmethod
-    async def delete(user_id: int) -> int:
+    async def delete(user_id: UUID) -> UUID:
         """Delete a test by its ID.
 
         Args:
@@ -81,7 +73,7 @@ class UserService:
         return user_id
 
     @staticmethod
-    async def update(user_id:int, user_data: UserInput) -> str:
+    async def update(user_id: int, user_data: UserInput) -> str:
         """Update a user on the database with new information.
 
         Args:
@@ -94,5 +86,5 @@ class UserService:
         user = User()
         user.email = user_data.email
 
-        await UserRepository.update(user_id,user)
+        await UserRepository.update(user_id, user)
         return f'Successfully updated data by id {user_id}'
