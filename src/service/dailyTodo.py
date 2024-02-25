@@ -31,6 +31,7 @@ class TodoService:
         todo.priority = todo_data.priority
         todo.favorite = todo_data.favorite
         todo.category = todo_data.category
+        todo.remember = todo_data.remember
 
         await TodoRepository.create(todo)
         return TodoType(id=todo.id,
@@ -42,7 +43,8 @@ class TodoService:
                         user_id=todo.user_id,
                         priority=todo.priority,
                         favorite=todo.favorite,
-                        category=todo.category)
+                        category=todo.category,
+                        remember=todo.remember)
 
     @staticmethod
     async def get_by_id(todo_id: UUID) -> TodoType:
@@ -64,7 +66,8 @@ class TodoService:
                         user_id=todo.user_id,
                         priority=todo.priority,
                         favorite=todo.favorite,
-                        category=todo.category)
+                        category=todo.category,
+                        remember=todo.remember)
 
     @staticmethod
     async def get_by_user(todo_user: UUID) -> list[TodoType]:
@@ -86,7 +89,8 @@ class TodoService:
                          user_id=todo.user_id,
                          priority=todo.priority,
                          favorite=todo.favorite,
-                         category=todo.category) for todo in list_daily_todo]
+                         category=todo.category,
+                         remember=todo.remember) for todo in list_daily_todo]
 
     @staticmethod
     async def delete(todo_id: UUID) -> UUID:
@@ -122,6 +126,7 @@ class TodoService:
         todo.priority = todo_data.priority
         todo.favorite = todo_data.favorite
         todo.category = todo_data.category
+        todo.remember = todo_data.remember
 
         await TodoRepository.update(todo_id, todo)
         return f'Successfully updated data by id {todo_id}'

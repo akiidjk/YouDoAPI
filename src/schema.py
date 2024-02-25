@@ -22,6 +22,8 @@ class TodoType:
     priority: int
     favorite: bool
     category: str | None
+    remember: bool
+
 
 
 @strawberry.type
@@ -61,6 +63,7 @@ class TodoInput:
     priority: int
     favorite: bool
     category: str | None
+    remember: bool
 
 
 @strawberry.input

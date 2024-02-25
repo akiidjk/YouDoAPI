@@ -84,8 +84,8 @@ class TodoRepository:
                 todo.priority = todo_data.priority
                 todo.favorite = todo_data.favorite
                 todo.category = todo_data.category
+                todo.remember = todo_data.remember
                 await async_session.commit()
-
 
     @staticmethod
     async def delete(todo_id: UUID):

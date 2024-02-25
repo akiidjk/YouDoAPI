@@ -23,5 +23,6 @@ class Todo(SQLModel, table=True):
     priority: int
     favorite: bool
     category: str | None
+    remember: bool
     user_id: UUID = Field(foreign_key="users.id")
     user: "User" = Relationship(back_populates="todos")
