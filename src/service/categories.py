@@ -12,13 +12,15 @@ class CategoryService:
     """
 
     @staticmethod
-    async def get_by_user(user_id: UUID) -> CategoriesType:
+    async def get_by_user(user_id: UUID) -> CategoriesType | None:
         """Get all categories from the database.
 
         Returns:
             _type_: _description_
         """
         category = await CategoriesRepository.get_by_user(user_id=user_id)
+        if not category:
+            return None
         return CategoriesType(id=category.id,
                               categories=category.categories,
                               user_id=category.user_id)

@@ -22,10 +22,14 @@ class CategoriesRepository:
         """
         session = db.get_new_session()
         async with session as async_session:
-            async_session.add(categories_data)
-            await async_session.commit()
-
-
+            query = select(Categories).where(Categories.user_id == categories_data.user_id)
+            result = await async_session.execute(query)
+            category = result.scalars().first()
+            if not category:
+                async_session.add(categories_data)
+                await async_session.commit()
+            else:
+                return category
     @staticmethod
     async def delete(user_id: UUID):
         """Asynchronously deletes the record in the database for the given categories' data
@@ -59,8 +63,8 @@ class CategoriesRepository:
         async with session as async_session:
             query = select(Categories).where(Categories.user_id == user_id)
             result = await async_session.execute(query)
-            categories = result.scalars().first()
-            return categories
+            category = result.scalars().first()
+            return category
 
     @staticmethod
     async def add_category(user_id: UUID, category: str) -> UUID:
