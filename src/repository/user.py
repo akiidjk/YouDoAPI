@@ -22,7 +22,7 @@ class UserRepository:
             existing_user_data = existing_user.scalars().first()
             if not existing_user_data:
                 async_session.add(user_data)
-                async_session.commit()
+                await async_session.commit()
                 return user_data.id
             return existing_user_data.id
 
