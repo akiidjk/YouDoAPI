@@ -1776,13 +1776,13 @@ files = [
 
 [[package]]
 name = "uvicorn"
-version = "0.25.0"
+version = "0.28.0"
 description = "The lightning-fast ASGI server."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "uvicorn-0.25.0-py3-none-any.whl", hash = "sha256:ce107f5d9bd02b4636001a77a4e74aab5e1e2b146868ebbad565237145af444c"},
-    {file = "uvicorn-0.25.0.tar.gz", hash = "sha256:6dddbad1d7ee0f5140aba5ec138ddc9612c5109399903828b4874c9937f009c2"},
+    {file = "uvicorn-0.28.0-py3-none-any.whl", hash = "sha256:6623abbbe6176204a4226e67607b4d52cc60ff62cda0ff177613645cefa2ece1"},
+    {file = "uvicorn-0.28.0.tar.gz", hash = "sha256:cab4473b5d1eaeb5a0f6375ac4bc85007ffc75c3cc1768816d9e5d589857b067"},
 ]
 
 [package.dependencies]
@@ -1973,4 +1973,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<4.0"
-content-hash = "3d7f46dcea42ca3e9bfd0e7a78d6ea1a98ea09f3f982aa53762fda8d5c173c21"
+content-hash = "763ab3c5a6468bc9653080ba4e7367a16a33593ed1c82585aebc5f13948b996b"
