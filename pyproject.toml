@@ -39,7 +39,7 @@ bleach = "^6.1.0"
 slowapi = "^0.1.9"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.1.5"
+ruff = "^0.3.4"
 coverage = "^7.3.2"
 locust = "^2.20.1"
 
